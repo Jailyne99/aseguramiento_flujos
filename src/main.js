@@ -1,10 +1,7 @@
-import Vue from 'vue'
-import App from './App.vue'
-import vuetify from './plugins/vuetify'
-import router from './router/router.js'
-import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import VueAxios from 'vue-axios'
-import Axios from 'axios'
+import Vue from 'vue';
+import App from './App.vue';
+import vuetify from './plugins/vuetify';
+import router from './router/router.js';
 
 Vue.config.productionTip = false
 Vue.use(BootstrapVue)

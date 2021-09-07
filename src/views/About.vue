@@ -1,5 +1,5 @@
 <template>
-    <h1>HOLA COMPONENTE ABOUTE</h1>
+    <h1>Hola soy el componente de About</h1>
 </template>
 <script>
 export default {

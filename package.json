@@ -11,8 +11,8 @@
     "bootstrap": "^5.1.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
-    "vue": "^2.6.14",
-    "vue-axios": "^3.2.5",
+    "gojs": "^2.1.48",
+    "vue": "^2.6.11",
     "vue-router": "^3.5.2",
     "vuetify": "^2.4.0",
     "vuex": "^3.6.2"
@@ -25,5 +25,17 @@
     "vue-cli-plugin-vuetify": "~2.4.2",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.7.0"
-  }
+  },
+  "description": "<<<<<<< HEAD",
+  "main": "babel.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jailyne99/aseguramiento_flujos.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jailyne99/aseguramiento_flujos/issues"
+  },
+  "homepage": "https://github.com/Jailyne99/aseguramiento_flujos#readme"
 }
