@@ -13,11 +13,18 @@ const app = express();
 
 //configuracion de servidor
 app.set('web','desarrolloUMG');
-app.set('port', process.env.PORT || 4000);
+app.set('port', process.env.PORT || 5010);
 
 //Middlewares --> accion app
 app.use(cors());
 app.use(morgan('dev'));
+app.use(express.urlencoded({extended: false}));  
+app.use(express.json());
+require('./database.js');
+
+
+
+
 app.get('/', function(rect,res){
     res.send('HOLAAAAA');
 });
