@@ -49,6 +49,11 @@ export default {
           path: "/About",
           action: this.rutas
         },
+        {
+          title: "Login",
+          path: "/Login",
+          action: this.rutas
+        },
       ]
     };
   },
