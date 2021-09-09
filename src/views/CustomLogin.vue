@@ -5,11 +5,12 @@
       <v-col cols="10" lg="4" class="mx-auto">
         <v-card class="pa-4">
           <div class="text-center">
-            <v-avatar size="100">
-              <v-img class="rounded-sm"
+            <v-avatar size="210">
+              <v-img
+                class="rounded-sm"
                 src="https://i.imgur.com/RJ5PGxt.png"
-                max-height="95"
-                max-width="95"
+                max-height="124"
+                max-width="170"
               ></v-img>
             </v-avatar>
             <h2 class="indigo--text">Bienvenido Usuario</h2>
@@ -17,20 +18,18 @@
           <v-form @submit.prevent="submitHandler" ref="form">
             <v-card-text>
               <v-text-field
-                v-model="email"
-                :rules="emailRules"
-                type="email"
-                label="Email"
-                placeholder="Email"
+                v-model="test.username"
+                type="text"
+                label="Usuario"
+                placeholder="Usuario"
                 prepend-inner-icon="mdi-account"
                 required
               />
               <v-text-field
-                v-model="password"
-                :rules="passwordRules"
+                v-model="test.password"
                 :type="passwordShow ? 'text' : 'password'"
-                label="Password"
-                placeholder="Password"
+                label="Contraseña"
+                placeholder="Contraseña"
                 prepend-inner-icon="mdi-key"
                 :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
                 @click:append="passwordShow = !passwordShow"
@@ -39,8 +38,12 @@
               <v-switch label="Remember me" color="indigo"></v-switch>
             </v-card-text>
             <v-card-actions class="justify-center">
-              <v-btn :loading="loading" type="submit" color="indigo">
-                <span class="white--text px-8">Login</span>
+              <v-btn
+                :loading="loading"
+                color="indigo"
+                v-on:click="ingresoUsuario()"
+              >
+                <span class="white--text px-8">Ingresar</span>
               </v-btn>
             </v-card-actions>
           </v-form>
@@ -60,16 +63,19 @@ export default {
     loading: false,
     snackbar: false,
     passwordShow: false,
-    email: "",
-    emailRules: [
+    test: {
+      username: null,
+      password: null,
+    },
+    /* emailRules: [
       (v) => !!v || "E-mail is required",
       (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
-    ],
-    password: "",
-    passwordRules: [
+    ],*/
+
+    /*passwordRules: [
       (v) => !!v || "Password is required",
       (v) => (v && v.length >= 6) || "Password must be 6  characters or more!",
-    ],
+    ],*/
   }),
   methods: {
     submitHandler() {
@@ -81,10 +87,34 @@ export default {
         }, 3000);
       }
     },
+    async ingresoUsuario() {
+      console.log(this.test.username);
+      console.log(this.test.password);
+      const info = {
+        payload: {
+          username: this.test.username,
+          password: this.test.password,
+        },
+      };
+      console.log("La informacion: " + info.username);
+      const response = await fetch(
+        "http://localhost:5010/api/procedimientos/ingresar",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(info),
+        }
+      );
+      console.log("La informacion: " + info);
+      return console.log(response.json());
+    },
   },
 };
 </script>
-<style>
+
+<style scoped>
 .backgruond {
   height: 300px;
   width: 100%;

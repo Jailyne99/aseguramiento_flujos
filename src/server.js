@@ -2,9 +2,11 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const db = require('./database.js');
+const passport = require('passport');
 
 //Inicializacion    
 const app = express();
+require('./lib/passport');
 
 
 //variables globales
@@ -20,6 +22,10 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 require('./database.js');
+
+//Inicializando passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 
@@ -50,8 +56,8 @@ app.get("/api/procedimientos/:id", (req, res) => {
 
 app.post("/api/procedimientos/agregar", (req, res) => {
     let data = {
-        nombre: req.body.nombre,
-        descripcion: req.body.descripcion,
+        nombre: req.body.payload.nombre,
+        descripcion: req.body.payload.descripcion,
      }
     db.query('INSERT INTO PROCEDIMIENTO SET ?',data, (error, result) => {
         if (error) {
@@ -61,6 +67,11 @@ app.post("/api/procedimientos/agregar", (req, res) => {
         }
     })
 });
+
+app.post("/api/procedimientos/ingresar", passport.authenticate('local.signup',{
+    successRedirect: '/Home', /* A donde lo envia si la autentificación es exitosa */
+    failureRedirect: '/api/procedimientos/ingresar',
+}));
 
 //Start
 app.listen(app.get('port'), () => console.log('Server is running on port: ' + app.get('port')));
