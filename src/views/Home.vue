@@ -47,6 +47,9 @@ export default {
         "http://localhost:5010/api/procedimientos/agregar",
         {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify(infor),
         }
       );

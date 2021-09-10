@@ -1,7 +1,7 @@
 module.exports = database = {
     host: 'localhost',
     user: 'root',
-    password: '1234',
+    password: 'Pablo092100$98',
     database: 'aseguramiento',
     insecureAuth: true, 
 }
