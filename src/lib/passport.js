@@ -6,6 +6,7 @@ passport.use('local.signup', new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password'
 },async (req, username,password, done)=>{
+    console.log("Me estoy ejecutando" + username)
     console.log(req.body);
 }));
 

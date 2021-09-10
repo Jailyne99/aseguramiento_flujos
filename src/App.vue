@@ -1,11 +1,8 @@
 <template>
- <v-app>
-   <v-toolbar app>
-   </v-toolbar>
-   <v-content>
-     <router-view/>
-   </v-content>
- </v-app>
+  <v-app>
+    <custom-nav-bar />
+    <router-view />
+  </v-app>
 </template>
 
 
@@ -17,8 +14,8 @@ import CustomNavBar from "./components/CustomNavBar.vue";
 export default {
   name: "App",
   components: {
-    CustomNavBar,
-  },
+    CustomNavBar
+  }
 };
 </script>
 
