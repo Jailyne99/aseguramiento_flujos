@@ -44,11 +44,31 @@ app.get("/api/procedimientos", (req, res) => {
     })
 });
 
+app.get("/api/tareas", (req, res) => {
+    db.query('SELECT * FROM TAREA', (error, rows) => {
+        if (error) {
+            throw error;
+        } else {
+            res.send(rows);
+        }
+    })
+});
+
 app.get("/api/procedimientos/:id", (req, res) => {
     db.query('SELECT * FROM PROCEDIMIENTO WHERE id = ? ',[req.params.id] , (error, row) => {
         if (error) {
             throw error;
         } else {
+            res.send(row);
+        }
+    })
+});
+app.get("/api/tarea/:id", (req, res) => {
+    db.query('SELECT * FROM TAREA WHERE id = ? ',[req.params.id] , (error, row) => {
+        if (error) {
+            throw error;
+        } else {
+            console.log(row);
             res.send(row);
         }
     })
@@ -59,7 +79,26 @@ app.post("/api/procedimientos/agregar", (req, res) => {
         nombre: req.body.payload.nombre,
         descripcion: req.body.payload.descripcion,
      }
+     console.log(req.body);
     db.query('INSERT INTO PROCEDIMIENTO SET ?',data, (error, result) => {
+        if (error) {
+            throw error;
+        } else {
+            res.send(result);
+        }
+    })
+});
+
+app.post("/api/tarea/agregar", (req, res) => {
+    let data = {
+        tiempo: req.body.payload.tiempo,
+        descripcion: req.body.payload.descripcion,
+        estado: req.body.payload.estado,
+        PROCEDIMIENTO_id: req.body.payload.PROCEDIMIENTO_id,
+        USUARIO_id: req.body.payload.USUARIO_id,
+     }
+     console.log(req.body);
+    db.query('INSERT INTO TAREA SET ?',data, (error, result) => {
         if (error) {
             throw error;
         } else {

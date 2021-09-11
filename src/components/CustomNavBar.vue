@@ -17,16 +17,16 @@
         ></v-img>
       </template>
 
+      <v-img
+        max-height="162"
+        max-width="73"
+        src="https://i.imgur.com/6rT6UC1.png"
+      ></v-img>
 
-      
-        <v-img
-          max-height="162"
-          max-width="73"
-                
-          src="https://i.imgur.com/6rT6UC1.png"
-        ></v-img>
-    
-      <v-toolbar-title>MINISTERIO DE COMUNICACIONES INFRAESTRURCTURA Y VIVIENDA</v-toolbar-title>
+      <v-toolbar-title class="mb-10"
+        ><h3>MINISTERIO DE COMUNICACIONES INFRAESTRURCTURA Y
+        VIVIENDA</h3></v-toolbar-title
+      >
 
       <v-spacer></v-spacer>
 
@@ -44,10 +44,11 @@
             >
               <v-col class="ma-0 pa-0">
                 <v-btn
+                  flat
                   link
                   :to="item.path"
                   class="ma-0"
-                  elevation="5"
+                  elevation="0"
                   small
                   block
                 >
@@ -77,6 +78,7 @@
 <script>
 export default {
   name: "CustomNavBar",
+  props: ["keycloak"],
   components: {},
   data() {
     return {
@@ -87,7 +89,7 @@ export default {
           action: this.rutas,
         },
         {
-          title: "Procesos",
+          title: "Procedimientos",
           path: "/Process",
           action: this.rutas,
         },
@@ -97,9 +99,19 @@ export default {
           action: this.rutas,
         },
         {
-          title: "Login",
-          path: "/Login",
+          title: "Agregar Procedimiento",
+          path: "/Procedimiento",
           action: this.rutas,
+        },
+        {
+          title: "Agregar Tarea",
+          path: "/Tarea",
+          action: this.rutas,
+        },
+         {
+          title: "Logout",
+          path: "/Logout",
+          action: this.keycloak.logout,
         },
       ],
     };
