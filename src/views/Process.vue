@@ -1,65 +1,71 @@
 <template>
-  <div>
-    <h1>Diagramas</h1>
-    <v-row align="center" class="ma-2">
-      <v-btn v-on:click="addNode()" class="mr-2" color="success">
-        <v-icon dark>mdi-plus</v-icon>
-      </v-btn>
-      <v-btn class="mr-2" color="error">
-        <v-icon dark>mdi-minus</v-icon>
-      </v-btn>
-      <v-btn class="mr-2" color="primary">Guardar</v-btn>
+  <v-container>
+    <v-row>
+      <v-col md="3">
+        <v-card class="mx-auto" max-width="900" tile>
+          <v-list>
+            <v-subheader class="font-weight-black"
+              >DIAGRAMA DE PROCESOS</v-subheader
+            >
+            <v-list-item-group v-model="selectedItem" color="primary">
+              <v-list-item v-for="(item, i) in items" :key="i">
+                <v-list-item-icon>
+                  <v-icon>mdi-arrow-right-circle-outline</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content v-on:click="selectorItem(item.id)">
+                  <v-list-item-title v-text="item.nombre"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list-item-group>
+          </v-list>
+          
+        </v-card>
+      </v-col>
+      <v-col md="9" class="diagrama">
+        <custom-diagrama v-bind:id="codigo" v-bind:mostrar="showTable">
+        </custom-diagrama>
+      </v-col>
     </v-row>
-    <div id="myDiagramDiv" style="width:1200px; height:400px; background-color: #DAE4E4;"></div>
-  </div>
+  </v-container>
 </template>
 
+
 <script>
-import goLocal from "../plugins/go.js";
-var $ = goLocal.object.GraphObject.make;
+import CustomDiagrama from "../components/CustomDiagrama.vue";
 
 export default {
-  name: "Process",
-  components: {},
+  components: {
+    CustomDiagrama,
+  },
   data() {
     return {
-      figureArray: [{}],
-      dinamicDiagram: null
+      showTable: false,
+      dialog: false,
+      selectedItem: null,
+      items: [{}],
+      codigo: null,
     };
   },
   created() {
-    //var $ = go.GraphObject.make;
-  },
-  mounted() {
-    console.log("El elemento a sido montado...");
-
-    var myDiagram = $(go.Diagram, "myDiagramDiv");
-    this.dinamicDiagram = myDiagram;
-
-    
-
-    this.dinamicDiagram.nodeTemplate = $(
-      go.Node,
-      "Auto",
-      $(go.Shape, { figure: "RoundedRectangle", fill: "white" }),
-      $(go.TextBlock, { text: "hello!", margin: 5 })
-    );
-
-    this.dinamicDiagram.model = new go.Model(this.figureArray);
-
-    console.log(this.figureArray);
+  
+    this.obtenerProcedimientos();
   },
   methods: {
-    addNode() {
-      var node = $(
-        go.Node,
-        "Auto",
-        $(go.Shape, { figure: "RoundedRectangle", fill: "pink" }),
-        $(go.TextBlock, { text: "Beta", margin: 5 })
-      );
-
-      this.dinamicDiagram.add(node);
+    async obtenerProcedimientos() {
+      const response = await fetch("http://localhost:5010/api/procedimientos");
+      this.items = await response.json();
+      return console.log(this.items);
+    },
+    selectorItem(id) {
+      console.log("ESTE ES EL IDE: " + id);
+      this.codigo = id;
+        if (this.id !== null) {
+      this.showTable = true;
+    } else {
+      this.showTable = false;
     }
-  }
+    console.log(this.showTable);
+    },
+  },
 };
-</script>   
+</script>
