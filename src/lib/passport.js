@@ -1,14 +1,10 @@
 const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy; /* Haremos un logeo local */
+const LocalStrategy = require('passport-local').Strategy;
 
-                /* [Nombre] [Metodo]  */
-passport.use('login.local', new LocalStrategy({
+passport.use('local.signup',new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password'
-},async (req, username,password, done)=>{
-    console.log("Soy el username" + username);
+},async(req,username,password,done) =>{
+    console.log('noches' + req.body);
+    console.log('soy yo');
 }));
-
-/*passport.serializeUser((usr, done)=>{
-
-})*/

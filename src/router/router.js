@@ -3,7 +3,10 @@ import VueRouter from "vue-router";
 import About from "../views/About";
 import Home from "../views/Home";
 import Process from "../views/Process";
-import Login from "../views/CustomLogin";
+//import Login from "../views/CustomLogin";
+import FormProcedimiento from "../views/InsertProcedimiento";
+import FormTarea from "../views/InsertTarea";
+
 
 Vue.use(VueRouter);
 
@@ -24,9 +27,14 @@ const routes = [
       component: About
    },
    {
-      path: "/Login",
-      name: "CustomLogin",
-      component: Login
+      path: "/Procedimiento",
+      name: "InsertProcedimiento",
+      component: FormProcedimiento
+   },
+   {
+      path: "/Tarea",
+      name: "InsertTarea",
+      component: FormTarea
    }
 ]
 
