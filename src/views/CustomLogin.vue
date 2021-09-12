@@ -5,30 +5,28 @@
         <h3>Login</h3>
       </div>
     </div>
-    <div class="row">
-      <div>
-        <img src alt style="width: 100%;" />
-        <div class="form-group">
-          <v-text-field
-            v-model="username"
-            type="text"
-            class="form-control"
-            name="userName"
-            placeholder="username"
-          />
-        </div>
-        <div class="form-group">
-          <v-text-field
-            v-model="password"
-            type="password"
-            class="form-control"
-            name="password"
-            placeholder="Password"
-          />
-        </div>
-        <div class="form-group">
-          <button v-on:click="prueba3()">login</button>
-        </div>
+    <div>
+      <img src alt style="width: 100%;" />
+      <div class="form-group">
+        <v-text-field
+          v-model="username"
+          type="text"
+          class="form-control"
+          name="username"
+          placeholder="username"
+        />
+      </div>
+      <div class="form-group">
+        <v-text-field
+          v-model="password"
+          type="password"
+          class="form-control"
+          name="password"
+          placeholder="Password"
+        />
+      </div>
+      <div class="form-group">
+        <button type="submit" v-on:click="prueba3()">login</button>
       </div>
     </div>
   </v-container>
@@ -45,21 +43,21 @@ export default {
   },
   methods: {
     async prueba3() {
-      const infor = {
+      const info = {
         payload: {
-          username: this.nombre,
-          password: this.descripcion
+          username: this.username,
+          password: this.password
         }
       };
-      console.log(infor);
+      console.log(info);
       const response = await fetch(
-        "http://localhost:5010/api/procedimientos/ingresar",
+        "http://localhost:5010/api/login",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(infor)
+          body: JSON.stringify(info)
         }
       );
       return console.log(response.json());

@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const db = require('./database.js');
 const passport = require('passport');
+const path = require('path');
 
 //Inicializacion    
 const app = express();
@@ -12,6 +13,7 @@ require('./lib/passport');
 
 
 //configuracion de servidor
+app.set('views', path.join(__dirname, 'views'));
 app.set('web', 'desarrolloUMG');
 app.set('port', process.env.PORT || 5010);
 
@@ -65,10 +67,27 @@ app.post("/api/procedimientos/agregar", (req, res) => {
     })
 });
 
-app.post("/api/procedimientos/ingresar", passport.authenticate('local.signup',{
-        successRedirect: '/Home', /* A donde lo envia si la autentificación es exitosa */
-        failureRedirect: '/CustomLogin'
-}));
+
+console.log(__dirname);
+console.log(path.join(app.get('views'),'/Home'));
+
+
+
+app.post("/api/login",
+passport.authenticate('login.local')
+,(req,res)=>{
+    console.log(req.body.payload);
+    console.log(req.user.username);
+    res.send("Estas autenticado");
+});
+
+
+
+/*app.post("/api/procedimientos/ingresar", passport.authenticate('loginLocal',{
+        successRedirect: path.join(app.get('views'),'/Home'),
+        failureRedirect: "/login"
+}));*/
+
 
 
 //Start
