@@ -1,11 +1,10 @@
 import Vue from 'vue';
 import App from './App.vue';
-import vuetify from './plugins/vuetify';
-import router from './router/router.js';
+import router from './router/router';
 import * as Keycloak from 'keycloak-js';
+import vuetify from './plugins/vuetify';
 import VueLogger from 'vuejs-logger';
 
-import "vuetify/dist/vuetify.min.css";
 
 Vue.config.productionTip = false
 
@@ -14,7 +13,7 @@ let realm = path.substring(path.indexOf("/#")).split("/")[2];
 if (realm.includes("&")) {
   realm = realm.split("&")[0];
 }
-console.log(realm)
+console.log(realm);
 
 const options = {
   isEnabled: true,
@@ -25,6 +24,8 @@ const options = {
   separator: '|',
   showConsoleColors: true
 };
+
+
 Vue.use(VueLogger, options);
 
 let initOptions = {
@@ -67,7 +68,6 @@ keycloak.init({ onLoad: initOptions.onLoad, checkLoginIframe: false }).then((aut
 }).catch(() => {
   Vue.$log.error("Autenticacion fallida");
 });
-
 
 
 

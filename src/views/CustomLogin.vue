@@ -111,6 +111,28 @@ export default {
       return console.log(response.json());
     },
   },
+  methods: {
+    async prueba3() {
+      const info = {
+        payload: {
+          username: this.username,
+          password: this.password
+        }
+      };
+      console.log(info);
+      const response = await fetch(
+        "http://localhost:5010/api/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(info)
+        }
+      );
+      return console.log(response.json());
+    }
+  }
 };
 </script>
 

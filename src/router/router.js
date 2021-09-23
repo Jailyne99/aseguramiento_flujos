@@ -3,9 +3,12 @@ import VueRouter from "vue-router";
 import About from "../views/About";
 import Home from "../views/Home";
 import Process from "../views/Process";
-//import Login from "../views/CustomLogin";
-import FormProcedimiento from "../views/InsertProcedimiento";
 import FormTarea from "../views/InsertTarea";
+import Diagramas from "../components/Diagramas";
+import BajaCuantia from "../views/BajaCuantia";
+import CompraDirecta from "../views/CompraDirecta";
+import Cotizacion from "../views/Cotizacion";
+import CreacionProveedor from "../views/CreacionProveedor";
 
 
 Vue.use(VueRouter);
@@ -27,9 +30,29 @@ const routes = [
       component: About
    },
    {
-      path: "/Procedimiento",
+      path: "/Diagramas",
+      name: "Diagramas",
+      component: Diagramas
+   },
+   {
+      path: "/BajaCuantia",
+      name: "Diagramas",
+      component: BajaCuantia
+   },
+   {
+      path: "/CompraDirecta",
+      name: "Diagramas",
+      component: CompraDirecta
+   },
+   {
+      path: "/Cotizacion",
+      name: "Diagramas",
+      component: Cotizacion
+   },
+   {
+      path: "/CreacionProveedor",
       name: "InsertProcedimiento",
-      component: FormProcedimiento
+      component: CreacionProveedor
    },
    {
       path: "/Tarea",

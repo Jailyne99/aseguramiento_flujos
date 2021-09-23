@@ -1,11 +1,11 @@
 import Vue from 'vue';
-const object = require('gojs');
+const libGo = require('gojs');
 
-Vue.use(object);
+Vue.use(libGo);
 
 
 
 export default {
-    object
+    libGo
 }
 
