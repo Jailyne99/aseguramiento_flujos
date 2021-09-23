@@ -2,11 +2,9 @@
   <v-container>
     <v-row>
       <v-col md="3">
-        <v-card class="mx-auto" max-width="900" tile>
-          <v-list>
-            <v-subheader class="font-weight-black"
-              >DIAGRAMA DE PROCESOS</v-subheader
-            >
+        <v-card flat class="mx-auto" max-width="900" tile>
+          <v-list dense>
+            <v-subheader class="font-weight-black">DIAGRAMA DE PROCESOS</v-subheader>
             <v-list-item-group v-model="selectedItem" color="primary">
               <v-list-item v-for="(item, i) in items" :key="i">
                 <v-list-item-icon>
@@ -18,12 +16,18 @@
               </v-list-item>
             </v-list-item-group>
           </v-list>
-          
         </v-card>
       </v-col>
-      <v-col md="9" class="diagrama">
-        <custom-diagrama v-bind:id="codigo" v-bind:mostrar="showTable">
-        </custom-diagrama>
+      <v-col md="9">
+        <div v-if="showDiagram">
+          <diagrama
+            v-bind:codigo="codigo"
+            v-bind:id:="itemsTask[0].id"
+            v-bind:descripcion="itemsTask[0].descripcion"
+            v-bind:tiempo="itemsTask[0].tiempo"
+            v-bind:showDiagram="showDiagram"
+          />
+        </div>
       </v-col>
     </v-row>
   </v-container>
@@ -32,22 +36,24 @@
 
 <script>
 import CustomDiagrama from "../components/CustomDiagrama.vue";
+import Diagrama from "../components/Diagramas.vue";
 
 export default {
   components: {
     CustomDiagrama,
+    Diagrama
   },
   data() {
     return {
-      showTable: false,
+      showDiagram: false,
       dialog: false,
       selectedItem: null,
       items: [{}],
-      codigo: null,
+      itemsTask: [{}],
+      codigo: null
     };
   },
   created() {
-  
     this.obtenerProcedimientos();
   },
   methods: {
@@ -56,16 +62,20 @@ export default {
       this.items = await response.json();
       return console.log(this.items);
     },
-    selectorItem(id) {
-      console.log("ESTE ES EL IDE: " + id);
+    async selectorItem(id) {
+      console.log("Procedimiento seleccionado: " + id);
       this.codigo = id;
-        if (this.id !== null) {
-      this.showTable = true;
-    } else {
-      this.showTable = false;
+      if (this.codigo != null) {
+        this.showDiagram = true;
+        const response = await fetch(
+          `http://localhost:5010/api/tareas/${this.codigo}`
+        );
+        this.itemsTask = await response.json();
+        return console.log(this.itemsTask);
+      } else {
+        this.showDiagram = false;
+      }
     }
-    console.log(this.showTable);
-    },
-  },
+  }
 };
 </script>

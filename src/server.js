@@ -4,7 +4,7 @@ const cors = require('cors');
 const db = require('./database.js');
 const passport = require('passport');
 
-//Inicializacion    
+/* Inicializacion */    
 const app = express();
 require('./lib/passport');
 
@@ -12,22 +12,19 @@ require('./lib/passport');
 
 
 //configuracion de servidor
-app.set('views', path.join(__dirname, 'views'));
 app.set('web', 'desarrolloUMG');
 app.set('port', process.env.PORT || 5010);
 
-//Middlewares --> accion app
+//Middlewares 
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 require('./database.js');
-/* Inicializando passport */
 
 //Inicializando passport
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 
 
@@ -64,7 +61,7 @@ app.get("/api/procedimientos/:id", (req, res) => {
         }
     })
 });
-app.get("/api/tarea/:id", (req, res) => {
+app.get("/api/tareas/:id", (req, res) => {
     db.query('SELECT * FROM TAREA WHERE id = ? ',[req.params.id] , (error, row) => {
         if (error) {
             throw error;
@@ -107,11 +104,6 @@ app.post("/api/tarea/agregar", (req, res) => {
         }
     })
 });
-
-app.post("/api/procedimientos/ingresar", passport.authenticate('local.signup',{
-    successRedirect: '/Home', /* A donde lo envia si la autentificación es exitosa */
-    failureRedirect: '/api/procedimientos/ingresar',
-}));
 
 //Start
 app.listen(app.get('port'), () => console.log('Server is running on port: ' + app.get('port')));
