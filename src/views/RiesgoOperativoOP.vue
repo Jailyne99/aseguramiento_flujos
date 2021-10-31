@@ -1,10 +1,10 @@
 <template>
   <v-container>
     <v-row>
-      <v-col md="10">
+      <v-col md="8">
         <v-card elevation="2" >
           <v-container class="background" fluid>
-            <h3>Cotización</h3>
+            <h3>Baja cuantia</h3>
           </v-container>
           <div
             id="myDiagramDiv"
@@ -12,8 +12,68 @@
           ></div>
         </v-card>
       </v-col>
+      <v-col md="4">
+        <v-card class="pb-2" elevation="2">
+          <v-container class="background" fluid>
+            <h3>Optimizacion Tiempo</h3>
+          </v-container>
+          <v-alert class="ma-4" outlined type="success" text>
+            En el proceso Completar la solicitud de pedido de compra o adquisición..."
+            Se contaba con 2 dias establecidos, pero por temas de urgencia
+            de información, se cambió a 2hr, 1hr si surgen inconvenientes.
+          </v-alert>
+          <v-alert class="ma-4 mb-2" outlined type="success" text>
+            En el proceso "Recibir expediente y consultar en el Portal de Guatecompras..."
+            Se contaba con 1 hora establecida, pero se verificó el tiempo necesario para 
+            la verificación de la informacion dada, contando con 20 min.
+          </v-alert>
+          <v-alert class="ma-4 mb-2" outlined type="success" text>
+            En el proceso "Trasladar expediente a Encargado de Compras para 
+            revisión y aprobación."
+            Se contaba con 1 hora establecida, pero se verificó el tiempo solo del 
+            traslado de la información de un departamento a otro, reduciendo el
+            tiempo a 10 min.
+          </v-alert>
+          <v-alert class="ma-4 mb-2" outlined type="success" text>
+            En el proceso "Revisar y aprobar la adquisición al proveedor..."
+            Se contaba con 1 hora establecida, pero se verificó el tiempo 
+            solo del traslado de la información de un departamento a otro,
+            reduciendo el tiempo a 20 min.
+          </v-alert>
+            <v-alert class="ma-4 mb-2" outlined type="success" text>
+            En el proceso "Recibir factura, revisar datos de facturación..."
+            Se contaba con 1 hora establecida, pero se verificó el tiempo
+            solo del traslado de la información de un departamento a otro, 
+            reduciendo el tiempo a 20 min.
+          </v-alert>
+            <v-alert class="ma-4 mb-2" outlined type="success" text>
+            En el proceso "Si los datos son correctos, la factura original es..."
+            Se contaba con 1 día establecido, pero se verificó el tiempo 
+            solo del traslado de la información de un departamento a otro,
+            reduciendo el tiempo a 1 hr.
+          </v-alert>
+            <v-alert class="ma-4 mb-2" outlined type="success" text>
+            En el proceso "Una vez reciibida la factura la misma deberá de ser 
+            publicada..."
+            Se contaba con 1 día establecido, pero se verificó el tiempo que
+            solo se necesita 1hr para publicar una facturacion.
+            </v-alert>
+          <v-alert class="ma-4 mb-2" outlined type="success" text>
+            En el proceso "Si la compra se tratase de un bien y/o suministro..."
+            Se contaba con 1 día establecido, pero se verificó el tiempo que
+            solo se necesita 2hrs para trasladar una copia de facturación
+            para elavoracion de 1-H.
+            </v-alert>
+          <v-alert class="ma-4 mb-2" outlined type="success" text>
+            En el proceso "Recibir e integrar al expediente los documentos
+            recibidos de Almacén..."
+           Se contaba con 2 días establecidos, pero se verificó el tiempo
+           que solo se necesita 2hrs para recibir y verificar el expediente
+           de los documentos recibidos.
+            </v-alert>
+        </v-card>
+      </v-col>
     </v-row>
-    {{ componentPath }}
     <router-view v-bind:currentFlow="currentFlow" />
   </v-container>
 </template>
@@ -28,8 +88,8 @@ export default {
       itemsTask: [{}],
       itemsTaskLinks: [{}],
       selectdNode: null,
+      currentFlow: true,
       dialog: false,
-      currentFlow: false,
       componentPath: "",
       name: "",
       nameRules: [
@@ -54,11 +114,11 @@ export default {
     async loadData() {
       console.log("Se carga la data");
       const response = await fetch(
-        `http://localhost:5010/api/procedimientos/mejorada/${4}`
+        `http://localhost:5010/api/procedimientos/mejorada/op/${5}`
       );
       this.itemsTask = await response.json();
       console.log("Este es el id: " + this.itemsTask[0].id);
-      const response2 = await fetch(`http://localhost:5010/api/enlace/${4}`);
+      const response2 = await fetch(`http://localhost:5010/api/enlace/${5}`);
       this.itemsTaskLinks = await response2.json();
       console.log("Este es el id: " + this.itemsTask[0].id);
       return this.loadAsyncDiagram(this.$router);
@@ -68,7 +128,7 @@ export default {
       this.codigo = id;
       if (this.codigo != null) {
         this.showDiagram = true;
-        const response = await fetch(`http://localhost:5010/api/tareas/${4}`);
+        const response = await fetch(`http://localhost:5010/api/tareas/op/${5}`);
         this.itemsTask = await response.json();
         return console.log(this.itemsTask);
       } else {
@@ -163,12 +223,13 @@ export default {
         {
           click: function (e, obj) {
             let path = window.location.href;
+            let ro = true;
             let componentPath = path
               .substring(path.indexOf("/#"))
               .split("/")[2];
             routes.push({
               name: "ProductoNoConforme",
-              params: { id: obj.part.data.key, path: componentPath },
+              params: { id: obj.part.data.key, path: componentPath, riesgo: ro},
             });
           },
         }

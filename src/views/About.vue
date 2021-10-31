@@ -1,5 +1,5 @@
 <template>
-  <v-card class="elevation-16 mx-auto" width="900">
+  <v-card class="elevation-0 mx-auto" width="900">
     <v-card-title class="text-h4"> Diagramas de flujo </v-card-title>
     <v-card-text>
       El diagrama de flujo o flujograma o diagrama de actividades es la

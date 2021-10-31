@@ -4,7 +4,7 @@
       <v-col md="10">
         <v-card elevation="2" >
           <v-container class="background" fluid>
-            <h3>Cotización</h3>
+            <h3>Baja cuantia</h3>
           </v-container>
           <div
             id="myDiagramDiv"
@@ -54,11 +54,11 @@ export default {
     async loadData() {
       console.log("Se carga la data");
       const response = await fetch(
-        `http://localhost:5010/api/procedimientos/mejorada/${4}`
+        `http://localhost:5010/api/procedimientos/mejorada/${5}`
       );
       this.itemsTask = await response.json();
       console.log("Este es el id: " + this.itemsTask[0].id);
-      const response2 = await fetch(`http://localhost:5010/api/enlace/${4}`);
+      const response2 = await fetch(`http://localhost:5010/api/enlace/${5}`);
       this.itemsTaskLinks = await response2.json();
       console.log("Este es el id: " + this.itemsTask[0].id);
       return this.loadAsyncDiagram(this.$router);
@@ -68,7 +68,7 @@ export default {
       this.codigo = id;
       if (this.codigo != null) {
         this.showDiagram = true;
-        const response = await fetch(`http://localhost:5010/api/tareas/${4}`);
+        const response = await fetch(`http://localhost:5010/api/tareas/${5}`);
         this.itemsTask = await response.json();
         return console.log(this.itemsTask);
       } else {
@@ -163,12 +163,13 @@ export default {
         {
           click: function (e, obj) {
             let path = window.location.href;
+            let ro = true;
             let componentPath = path
               .substring(path.indexOf("/#"))
               .split("/")[2];
             routes.push({
               name: "ProductoNoConforme",
-              params: { id: obj.part.data.key, path: componentPath },
+              params: { id: obj.part.data.key, path: componentPath, riesgo: ro},
             });
           },
         }

@@ -47,7 +47,7 @@ keycloak.init({ onLoad: initOptions.onLoad, checkLoginIframe: false }).then((aut
     new Vue({
       vuetify,
       router,
-      render: h => h(App, { props: { keycloak: keycloak } })
+      render: h => h(App, { props: { keycloak: keycloak, router: router} })
     }).$mount('#app')
   }
 

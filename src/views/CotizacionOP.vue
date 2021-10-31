@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row>
-      <v-col md="10">
+      <v-col md="8">
         <v-card elevation="2" >
           <v-container class="background" fluid>
             <h3>Cotización</h3>
@@ -12,8 +12,21 @@
           ></div>
         </v-card>
       </v-col>
+      <v-col md="4">
+        <v-card class="pb-2" elevation="2">
+          <v-container class="background" fluid>
+            <h3>Optimizacion Tiempo</h3>
+          </v-container>
+          <v-alert class="ma-4" outlined type="success" text>
+            En el proceso "Completar la solicitud de pedido de compra o 
+            adquisición de servicios y justificación de bienes..."
+            Se tenía establecido 2 días completos. Por temas de urgencia
+            de información se minimizo a 2hrs tomando en cuenta de esas 
+            horas 1hr si surgen inconvenientes.
+          </v-alert>
+        </v-card>
+      </v-col>
     </v-row>
-    {{ componentPath }}
     <router-view v-bind:currentFlow="currentFlow" />
   </v-container>
 </template>
@@ -29,7 +42,7 @@ export default {
       itemsTaskLinks: [{}],
       selectdNode: null,
       dialog: false,
-      currentFlow: false,
+      currentFlow: true,
       componentPath: "",
       name: "",
       nameRules: [
@@ -54,7 +67,7 @@ export default {
     async loadData() {
       console.log("Se carga la data");
       const response = await fetch(
-        `http://localhost:5010/api/procedimientos/mejorada/${4}`
+        `http://localhost:5010/api/procedimientos/mejorada/op/${4}`
       );
       this.itemsTask = await response.json();
       console.log("Este es el id: " + this.itemsTask[0].id);
@@ -68,7 +81,7 @@ export default {
       this.codigo = id;
       if (this.codigo != null) {
         this.showDiagram = true;
-        const response = await fetch(`http://localhost:5010/api/tareas/${4}`);
+        const response = await fetch(`http://localhost:5010/api/tareas/op/${4}`);
         this.itemsTask = await response.json();
         return console.log(this.itemsTask);
       } else {

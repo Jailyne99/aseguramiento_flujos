@@ -1,22 +1,22 @@
 <template>
   <v-app data-app>
     <custom-nav-bar v-bind:keycloak="keycloak" class="ma-0 pa-0" />
-    <router-view v-bind:keycloak="keycloak" />
+    <router-view v-bind:keycloak="keycloak" v-bind:router="router" />
+    <!-- <custom-footer /> -->
   </v-app>
 </template>
-
-
 <script>
-//import Login from "./views/CustomLogin.vue";
 import CustomNavBar from "./components/CustomNavBar.vue";
-//import Principal from "";
+import CustomFooter from "./components/CustomFooter.vue";
 
 export default {
   name: "App",
-  props: ["keycloak"],
+  props: ["keycloak", "router"],
   components: {
-    CustomNavBar
-  }
+    CustomNavBar,
+    CustomFooter,
+    
+  },
 };
 </script>
 
